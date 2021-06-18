@@ -26,11 +26,15 @@ export class UsersController {
     return this.usersService.findAll(+skip, +limit);
   }
 
+  @hasRoles(UserRole.Admin, UserRole.User)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
+  @hasRoles(UserRole.Admin, UserRole.User)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
